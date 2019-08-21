@@ -1,0 +1,69 @@
+package cmd
+
+import (
+	"fmt"
+	"log"
+	"os"
+	u "os/user"
+
+	"github.com/spf13/cobra"
+	"github.com/spf13/viper"
+)
+
+var (
+	cfgFile  string
+	user     string
+	password string
+	server   string
+	port     int
+
+	rootCmd = &cobra.Command{
+		Use:     "nexus",
+		Short:   `A CLI to interact with Sonatype Nexus IQ and Sonatype Repository Manager`,
+		Long:    `A Command Line Interface to interact with Sonatype Nexus IQ and Sonatype Repository Manager`,
+		Version: "0.0.1",
+	}
+)
+
+func Execute() {
+	if err := rootCmd.Execute(); err != nil {
+		fmt.Println(err)
+		os.Exit(1)
+	}
+}
+
+func init() {
+	cobra.OnInitialize(initConfig)
+
+	usr, err := u.Current()
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	configPath := fmt.Sprintf("%s/.nexus.json", usr.HomeDir)
+
+	rootCmd.PersistentFlags().StringVar(&cfgFile, "cfgFile", configPath, fmt.Sprintf("config file (default is %s)", configPath))
+}
+
+func initConfig() {
+	viper.SetConfigType("json")
+	if cfgFile != "" {
+		viper.SetConfigFile(cfgFile)
+	} else {
+		usr, err := u.Current()
+		if err != nil {
+			fmt.Println(err)
+			os.Exit(1)
+		}
+
+		viper.AddConfigPath(usr.HomeDir)
+		viper.SetConfigName(".nexus.json")
+	}
+
+	viper.AutomaticEnv()
+
+	if err := viper.ReadInConfig(); err == nil {
+		//Used for Debug
+		//fmt.Printf(viper.GetString("user"))
+	}
+}
