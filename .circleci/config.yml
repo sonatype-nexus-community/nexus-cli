@@ -1,0 +1,40 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/golang:1.13
+
+    working_directory: /go/src/github.com/sonatype-nexus-community/nexus-cli
+    steps:
+      - checkout
+
+      - run: go get -v -t -d ./...
+      - run: go test -v ./...
+  release:
+    docker:
+      - image: goreleaser/goreleaser:v0.119.0
+    working_directory: /go/src/github.com/sonatype-nexus-community/nexus-cli
+    steps:
+      - run: apk add git openssh-client
+      - run: git config --global url."git@github.com:".insteadOf "https://github.com/"
+      - checkout
+      - add_ssh_keys:
+          fingerprints:
+            - "43:b1:46:78:0a:65:fc:0d:3f:72:d4:1d:92:4c:70:fa"
+      - run: goreleaser
+workflows:
+  version: 2
+  workflow:
+    jobs:
+      - build:
+          filters:
+            tags:
+              only: /.*/
+      - release:
+          requires:
+            - build
+          filters:
+            tags:
+              only: /^v.*/
+            branches:
+              ignore: /.*/
