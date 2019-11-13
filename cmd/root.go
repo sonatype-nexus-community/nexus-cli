@@ -11,11 +11,11 @@ import (
 )
 
 var (
-	cfgFile  string
-	user     string
-	password string
-	server   string
-	port     int
+	cfgFile    string
+	iqUser     string
+	iqPassword string
+	iqServer   string
+	iqPort     int
 
 	rootCmd = &cobra.Command{
 		Use:     "nexus",

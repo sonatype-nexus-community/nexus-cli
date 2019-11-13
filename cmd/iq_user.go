@@ -6,7 +6,7 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var userCmd = &cobra.Command{
+var iqUserCmd = &cobra.Command{
 	Use:   "user",
 	Short: "A brief description of your command",
 	Long: `A longer description that spans multiple lines and likely contains examples
@@ -21,5 +21,5 @@ to quickly create a Cobra application.`,
 }
 
 func init() {
-	iqCmd.AddCommand(userCmd)
+	iqCmd.AddCommand(iqUserCmd)
 }

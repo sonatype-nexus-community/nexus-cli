@@ -7,7 +7,7 @@ import (
 )
 
 var (
-	licenseCmd = &cobra.Command{
+	iqLicenseCmd = &cobra.Command{
 		Use:   "license",
 		Short: "Manage Nexus IQ Licenses",
 		Long:  `Install, Uninstall, and inspect the licenses used for Nexus IQ Server`,
@@ -16,7 +16,7 @@ var (
 		},
 	}
 
-	licenseInstall = &cobra.Command{
+	iqLicenseInstall = &cobra.Command{
 		Use:   "install",
 		Short: "install a Nexus IQ license",
 		Long:  `install a Nexus IQ license`,
@@ -26,7 +26,7 @@ var (
 		},
 	}
 
-	licenseUninstall = &cobra.Command{
+	iqLicenseUninstall = &cobra.Command{
 		Use:   "uninstall",
 		Short: "uninstall a Nexus IQ license",
 		Long:  `uninstall a Nexus IQ license`,
@@ -35,7 +35,7 @@ var (
 		},
 	}
 
-	licenseInfo = &cobra.Command{
+	iqLicenseInfo = &cobra.Command{
 		Use:   "info",
 		Short: "show the details of the installed Nexus IQ license",
 		Long:  `show the details of the installed Nexus IQ license`,
@@ -46,8 +46,8 @@ var (
 )
 
 func init() {
-	iqCmd.AddCommand(licenseCmd)
-	licenseCmd.AddCommand(licenseInstall)
-	licenseCmd.AddCommand(licenseUninstall)
-	licenseCmd.AddCommand(licenseInfo)
+	iqCmd.AddCommand(iqLicenseCmd)
+	iqLicenseCmd.AddCommand(iqLicenseInstall)
+	iqLicenseCmd.AddCommand(iqLicenseUninstall)
+	iqLicenseCmd.AddCommand(iqLicenseInfo)
 }
