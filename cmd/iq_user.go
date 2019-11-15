@@ -20,6 +20,8 @@ to quickly create a Cobra application.`,
 	},
 }
 
+/*
 func init() {
 	iqCmd.AddCommand(iqUserCmd)
 }
+*/

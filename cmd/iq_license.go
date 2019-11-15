@@ -2,8 +2,12 @@ package cmd
 
 import (
 	"fmt"
+	"log"
+	"os"
 
 	"github.com/spf13/cobra"
+
+	privateiq "github.com/hokiegeek/gonexus-private/iq"
 )
 
 var (
@@ -12,7 +16,7 @@ var (
 		Short: "Manage Nexus IQ Licenses",
 		Long:  `Install, Uninstall, and inspect the licenses used for Nexus IQ Server`,
 		Run: func(cmd *cobra.Command, args []string) {
-			fmt.Println("license called")
+			log.Println("license called")
 		},
 	}
 
@@ -21,8 +25,8 @@ var (
 		Short: "install a Nexus IQ license",
 		Long:  `install a Nexus IQ license`,
 		Run: func(cmd *cobra.Command, args []string) {
-			fmt.Println("install license called")
-			fmt.Println(args)
+			// log.Println("install license called")
+			iqInstallLicense(args[0])
 		},
 	}
 
@@ -31,7 +35,7 @@ var (
 		Short: "uninstall a Nexus IQ license",
 		Long:  `uninstall a Nexus IQ license`,
 		Run: func(cmd *cobra.Command, args []string) {
-			fmt.Println("uninstall license called")
+			log.Println("uninstall license called")
 		},
 	}
 
@@ -40,7 +44,7 @@ var (
 		Short: "show the details of the installed Nexus IQ license",
 		Long:  `show the details of the installed Nexus IQ license`,
 		Run: func(cmd *cobra.Command, args []string) {
-			fmt.Println("uninstall license called")
+			log.Println("uninstall license called")
 		},
 	}
 )
@@ -48,6 +52,20 @@ var (
 func init() {
 	iqCmd.AddCommand(iqLicenseCmd)
 	iqLicenseCmd.AddCommand(iqLicenseInstall)
-	iqLicenseCmd.AddCommand(iqLicenseUninstall)
-	iqLicenseCmd.AddCommand(iqLicenseInfo)
+	// iqLicenseCmd.AddCommand(iqLicenseUninstall)
+	// iqLicenseCmd.AddCommand(iqLicenseInfo)
+}
+
+func iqInstallLicense(licensePath string) {
+	license, err := os.Open(licensePath)
+	if err != nil {
+		panic(err)
+	}
+
+	iq := newIQClient()
+	if err = privateiq.InstallLicense(iq, license); err != nil {
+		panic(err)
+	}
+
+	fmt.Println("Installed license")
 }
