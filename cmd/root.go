@@ -1,6 +1,7 @@
 package cmd
 
 import (
+	"encoding/json"
 	"fmt"
 	"log"
 	"os"
@@ -9,6 +10,11 @@ import (
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 )
+
+var templateJSONPretty = func(v interface{}) string {
+	a, _ := json.MarshalIndent(v, "", "  ")
+	return string(a)
+}
 
 var (
 	cfgFile    string
