@@ -44,6 +44,8 @@ github.com/hashicorp/hcl v1.0.0 h1:0Anlzjpi4vEasTeNFn2mLJgTSwt0+6sfsiTG8qcWGx4=
 github.com/hashicorp/hcl v1.0.0/go.mod h1:E5yfLk+7swimpb2L/Alb/PJmXilQ/rhwaUYs4T20WEQ=
 github.com/hokiegeek/gonexus-private v0.10.5 h1:5SRh31sYnOUVb7+vqmT40hHk93q6H4f4up8XsWOK3aE=
 github.com/hokiegeek/gonexus-private v0.10.5/go.mod h1:6ndJg87po2DaJiKLcfgjJ5kuqH80+8dxakXmCQxFmF4=
+github.com/hokiegeek/gonexus-private v0.10.6 h1:37NuLIDatfDnidm4zSzWm9SRrSaj0yIQ9Gb/uOxsQqs=
+github.com/hokiegeek/gonexus-private v0.10.6/go.mod h1:NAmySovS4EzBnNNy+7CZAlAcFBYEVWGoapz6qWUyD2Q=
 github.com/inconshreveable/mousetrap v1.0.0 h1:Z8tu5sraLXCXIcARxBp/8cbvlwVa7Z1NHg9XEKhtSvM=
 github.com/inconshreveable/mousetrap v1.0.0/go.mod h1:PxqpIevigyE2G7u3NXJIT2ANytuPF1OarO4DADm73n8=
 github.com/jonboulle/clockwork v0.1.0/go.mod h1:Ii8DK3G1RaLaWxj9trq07+26W01tbo22gdxWY5EU2bo=
@@ -91,6 +93,8 @@ github.com/soheilhy/cmux v0.1.4/go.mod h1:IM3LyeVVIOuxMH7sFAkER9+bJ4dT7Ms6E4xg4k
 github.com/sonatype-nexus-community/gonexus v0.47.1/go.mod h1:8mIhif8LsneZhpdBovy51ah8CcYuy7Al4WP723TQoOY=
 github.com/sonatype-nexus-community/gonexus v0.53.1 h1:CRTLQBpUCAbT8HE3TAwTPDsEYdKayoR5z1Th8Dlo4DU=
 github.com/sonatype-nexus-community/gonexus v0.53.1/go.mod h1:8mIhif8LsneZhpdBovy51ah8CcYuy7Al4WP723TQoOY=
+github.com/sonatype-nexus-community/gonexus v0.54.0 h1:T7NqiJDJcj9bz0EgRv3zmxPk92phCgYwLsqqZeIpw/I=
+github.com/sonatype-nexus-community/gonexus v0.54.0/go.mod h1:8mIhif8LsneZhpdBovy51ah8CcYuy7Al4WP723TQoOY=
 github.com/spaolacci/murmur3 v0.0.0-20180118202830-f09979ecbc72/go.mod h1:JwIasOWyU6f++ZhiEuf87xNszmSA2myDM2Kzu9HwQUA=
 github.com/spf13/afero v1.1.2 h1:m8/z1t7/fwjysjQRYbP0RD+bUIF/8tJwPdEZsI83ACI=
 github.com/spf13/afero v1.1.2/go.mod h1:j4pytiNVoe2o6bmDsKpLACNPDBIoEAkihy7loJ1B0CQ=
