@@ -25,9 +25,9 @@ var (
 
 	rootCmd = &cobra.Command{
 		Use:     "nexus",
-		Short:   `A CLI to interact with Sonatype Nexus IQ and Sonatype Repository Manager`,
-		Long:    `A Command Line Interface to interact with Sonatype Nexus IQ and Sonatype Repository Manager`,
-		Version: "0.0.1",
+		Short:   `A CLI to interact with Sonatype Nexus IQ and Sonatype Nexus Repository Manager`,
+		Long:    `A Command Line Interface to interact with Sonatype Nexus IQ and Sonatype Nexus Repository Manager`,
+		Version: "0.2.0",
 	}
 )
 
