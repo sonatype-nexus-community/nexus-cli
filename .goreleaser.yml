@@ -1,4 +1,4 @@
-project_name: nx
+project_name: nexus
 env:
   - GO111MODULE=on
   - GOPRIVATE="github.com/hokiegeek"
