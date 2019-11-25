@@ -9,7 +9,7 @@ import (
 
 var iqInitCmd = &cobra.Command{
 	Use:     "init [-u|--user] username [-p|--password] password ",
-	Short:   "initializes the nexus CLI.",
+	Short:   "initializes the nexus CLI",
 	Long:    `initializes the nexus CLI and creates a config file (default is $HOME/.nexus.yaml`,
 	Example: `init --user Dave --password Password123!`,
 	Run: func(cmd *cobra.Command, args []string) {

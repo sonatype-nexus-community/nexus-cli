@@ -13,11 +13,8 @@ import (
 var (
 	iqLicenseCmd = &cobra.Command{
 		Use:   "license",
-		Short: "Manage Nexus IQ Licenses",
+		Short: "install and uninstall Nexus IQ licenses",
 		Long:  `Install, Uninstall, and inspect the licenses used for Nexus IQ Server`,
-		Run: func(cmd *cobra.Command, args []string) {
-			log.Println("license called")
-		},
 	}
 
 	iqLicenseInstall = &cobra.Command{
@@ -25,7 +22,6 @@ var (
 		Short: "install a Nexus IQ license",
 		Long:  `install a Nexus IQ license`,
 		Run: func(cmd *cobra.Command, args []string) {
-			// log.Println("install license called")
 			iqInstallLicense(args[0])
 		},
 	}
