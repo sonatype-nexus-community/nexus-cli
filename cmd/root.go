@@ -27,7 +27,7 @@ var (
 		Use:     "nexus",
 		Short:   `A CLI to interact with Sonatype Nexus IQ and Sonatype Nexus Repository Manager`,
 		Long:    `A Command Line Interface to interact with Sonatype Nexus IQ and Sonatype Nexus Repository Manager`,
-		Version: "0.2.0",
+		Version: "0.3.0",
 	}
 )
 
