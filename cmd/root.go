@@ -31,6 +31,7 @@ var (
 	}
 )
 
+// Execute builds the command tree for the CLI. Exits if an error if found.
 func Execute() {
 	if err := rootCmd.Execute(); err != nil {
 		fmt.Println(err)
