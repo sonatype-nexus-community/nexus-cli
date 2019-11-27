@@ -6,6 +6,7 @@ import (
 	"html/template"
 	"log"
 	"os"
+	"strings"
 
 	"github.com/spf13/cobra"
 
@@ -29,7 +30,7 @@ var (
 		var format string
 
 		c := &cobra.Command{
-			Use:   "details",
+			Use:   "details [OPTIONS]",
 			Short: "Get Component Details",
 			Long:  `Get details of the given component from your Nexus IQ Server`,
 			Run: func(cmd *cobra.Command, args []string) {
@@ -63,7 +64,7 @@ var (
 		var format, application string
 
 		c := &cobra.Command{
-			Use:   "evaluate",
+			Use:   "evaluate [OPTIONS] PURLS",
 			Short: "Evaluate a named component",
 			Long: `Evaluate a given component for a given application with your Nexus IQ Server. Returns JSON output.
 			
@@ -88,7 +89,7 @@ nexus iq components evaluate --application AwesomeApp 'pkg:maven/axis/axis@1.2.1
 		var format, application, organization, stage string
 
 		c := &cobra.Command{
-			Use:   "remediation",
+			Use:   "remediation [OPTIONS] PURLS",
 			Short: "Determine remediation version of given components",
 			Long: `Given component and a Nexus IQ application returns JSON output with the next version of the component that does not violate or fail Nexus IQ policies.
 			
@@ -110,6 +111,47 @@ nexus iq components remediation --application AwesomeApp 'pkg:maven/axis/axis@1.
 
 		return c
 	}
+
+	iqComponentsSearch = func() *cobra.Command {
+		var (
+			format, stage string
+		)
+
+		c := &cobra.Command{
+			Use:     "search [OPTIONS] TERM",
+			Aliases: []string{"q"},
+			Short:   "Search for a component",
+			Long: `Search for a component in your Nexus IQ Server based on given criteria. Returns JSON output.
+			
+TERM can be:
+- A PURL identifier (https://github.com/package-url/purl-spec)
+- A sha1 hash of the package`,
+			Args: cobra.MinimumNArgs(1),
+			Run: func(cmd *cobra.Command, args []string) {
+				var term string
+				if len(args) > 0 {
+					term = args[0]
+				}
+				iqComponentSearch(format, stage, term)
+			},
+			Example: `# Search for a specific component and version
+nexus iq components search 'pkg:pypi/django@1.11.1'
+
+# Search for any nuget components in released applications
+nexus iq components search --stage release 'pkg:nuget/*@*'
+
+# Search for any Angular components currently in production
+nexus iq components search --stage operate 'pkg:npm/@angular/*@*'
+
+# List the applications which have any Apache Commons components
+nexus iq components search --format '{{range .}}{{.ApplicationID}}{{end}}' 'pkg:maven/commons-*/*@*?type=*'`,
+		}
+
+		c.Flags().StringVarP(&format, "format", "f", "", "Pretty-print search using a Go template")
+		c.Flags().StringVarP(&stage, "stage", "t", "build", "The stage to filter the search by. Valid values: build, stage-release, release, operate")
+
+		return c
+	}
 )
 
 func init() {
@@ -117,7 +159,8 @@ func init() {
 	iqComponentsCmd.AddCommand(iqComponentsDetails())
 	iqComponentsCmd.AddCommand(iqComponentsList())
 	iqComponentsCmd.AddCommand(iqComponentsEvaluate())
-	// iqComponentsCmd.AddCommand(iqComponentsRemediation())
+	iqComponentsCmd.AddCommand(iqComponentsRemediation())
+	iqComponentsCmd.AddCommand(iqComponentsSearch())
 }
 
 func iqComponentDeets(format string, ids ...string) {
@@ -253,5 +296,51 @@ func iqComponentRemediation(format, application, organization, stage string, com
 
 	for _, e := range errs {
 		fmt.Fprintf(os.Stderr, "error finding remediation for '%s': %v\n", e.component, e.err)
+	}
+}
+
+func iqComponentSearch(format, stage, term string) {
+	query := nexusiq.NewSearchQueryBuilder()
+
+	if stage != "" {
+		query = query.Stage(stage)
+	}
+
+	switch {
+	case strings.HasPrefix(term, "pkg:"):
+		query = query.PackageURL(term)
+	case term != "":
+		query = query.Hash(term)
+	}
+	/*
+				case "coord":
+					var c nexusiq.Coordinates
+					if err := json.Unmarshal([]byte(val), &c); err != nil {
+						panic(err)
+					}
+					query = query.Coordinates(c)
+		case "id":
+			var c nexusiq.ComponentIdentifier
+			if err := json.Unmarshal([]byte(val), &c); err != nil {
+				panic(err)
+			}
+			query = query.ComponentIdentifier(c)
+	*/
+
+	components, err := nexusiq.SearchComponents(iqClient, query)
+	if err != nil {
+		log.Fatalf("Did not complete search: %v", err)
+	}
+
+	if format != "" {
+		tmpl := template.Must(template.New("search").Funcs(template.FuncMap{"json": TemplateJSONPretty}).Parse(format))
+		tmpl.Execute(os.Stdout, components)
+	} else {
+		buf, err := json.MarshalIndent(components, "", "  ")
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		fmt.Println(string(buf))
 	}
 }

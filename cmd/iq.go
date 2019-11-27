@@ -13,15 +13,24 @@ var (
 	iqClient nexusiq.IQ
 
 	// IqCommand is the noun which handles any Nexus IQ actions
-	IqCommand = &cobra.Command{
-		Use:     "iq",
-		Aliases: []string{"q"},
-		Short:   "Subcommand for managing functionality of Nexus IQ",
-		Long:    `Subcommand for managing functionality of Nexus IQ`,
-		PersistentPreRun: func(cmd *cobra.Command, args []string) {
-			iqClient = newIQClient()
-		},
-	}
+	IqCommand = func() *cobra.Command {
+		c := &cobra.Command{
+			Use:     "iq",
+			Aliases: []string{"q"},
+			Short:   "Subcommand for managing functionality of Nexus IQ",
+			Long:    `Subcommand for managing functionality of Nexus IQ`,
+			PersistentPreRun: func(cmd *cobra.Command, args []string) {
+				iqClient = newIQClient()
+			},
+		}
+
+		c.PersistentFlags().StringVarP(&iqUser, "user", "u", "", "your Nexus IQ user name.")
+		c.PersistentFlags().StringVarP(&iqPassword, "password", "p", "", "your Nexus IQ password.")
+		c.PersistentFlags().StringVarP(&iqServer, "server", "s", "http://localhost", "the address of the Nexus IQ Server to use.")
+		c.PersistentFlags().IntVarP(&iqPort, "port", "", 8070, "the port which the Nexus IQ Server is listening on.")
+
+		return c
+	}()
 )
 
 func init() {
