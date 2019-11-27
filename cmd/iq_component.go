@@ -113,7 +113,7 @@ nexus iq components remediation --application AwesomeApp 'pkg:maven/axis/axis@1.
 )
 
 func init() {
-	iqCmd.AddCommand(iqComponentsCmd)
+	IqCommand.AddCommand(iqComponentsCmd)
 	iqComponentsCmd.AddCommand(iqComponentsDetails())
 	iqComponentsCmd.AddCommand(iqComponentsList())
 	iqComponentsCmd.AddCommand(iqComponentsEvaluate())
@@ -141,7 +141,7 @@ func iqComponentDeets(format string, ids ...string) {
 		}
 
 		if format != "" {
-			tmpl := template.Must(template.New("deets").Funcs(template.FuncMap{"json": templateJSONPretty}).Parse(format))
+			tmpl := template.Must(template.New("deets").Funcs(template.FuncMap{"json": TemplateJSONPretty}).Parse(format))
 			tmpl.Execute(os.Stdout, components)
 		} else {
 			buf, err := json.MarshalIndent(components, "", "  ")
@@ -168,7 +168,7 @@ func iqComponentsAll(format string) {
 	}
 
 	if format != "" {
-		tmpl := template.Must(template.New("deets").Funcs(template.FuncMap{"json": templateJSONPretty}).Parse(format))
+		tmpl := template.Must(template.New("deets").Funcs(template.FuncMap{"json": TemplateJSONPretty}).Parse(format))
 		tmpl.Execute(os.Stdout, components)
 	} else {
 		buf, err := json.MarshalIndent(components, "", "  ")
@@ -200,7 +200,7 @@ func iqComponentEval(format, app string, components []string) {
 	}
 
 	if format != "" {
-		tmpl := template.Must(template.New("report").Funcs(template.FuncMap{"json": templateJSONPretty}).Parse(format))
+		tmpl := template.Must(template.New("report").Funcs(template.FuncMap{"json": TemplateJSONPretty}).Parse(format))
 		tmpl.Execute(os.Stdout, report)
 	} else {
 		json, err := json.MarshalIndent(report, "", "  ")
@@ -248,7 +248,7 @@ func iqComponentRemediation(format, application, organization, stage string, com
 	}
 
 	if format != "" {
-		tmpl := template.Must(template.New("remediation").Funcs(template.FuncMap{"json": templateJSONPretty}).Parse(format))
+		tmpl := template.Must(template.New("remediation").Funcs(template.FuncMap{"json": TemplateJSONPretty}).Parse(format))
 		tmpl.Execute(os.Stdout, remediations)
 	} else {
 		buf, err := json.MarshalIndent(remediations, "", "  ")

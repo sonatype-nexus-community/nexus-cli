@@ -46,7 +46,7 @@ var (
 )
 
 func init() {
-	iqCmd.AddCommand(iqLicenseCmd)
+	IqCommand.AddCommand(iqLicenseCmd)
 	iqLicenseCmd.AddCommand(iqLicenseInstall)
 	// iqLicenseCmd.AddCommand(iqLicenseUninstall)
 	// iqLicenseCmd.AddCommand(iqLicenseInfo)

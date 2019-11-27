@@ -11,19 +11,17 @@ import (
 	"github.com/spf13/viper"
 )
 
-var templateJSONPretty = func(v interface{}) string {
+// TemplateJSONPretty is intended to be used as a text/template function that returns a json-encoded version of the given interface
+var TemplateJSONPretty = func(v interface{}) string {
 	a, _ := json.MarshalIndent(v, "", "  ")
 	return string(a)
 }
 
 var (
-	cfgFile    string
-	iqUser     string
-	iqPassword string
-	iqServer   string
-	iqPort     int
+	cfgFile string
 
-	rootCmd = &cobra.Command{
+	// RootCmd is the primary command that will handle the nouns
+	RootCmd = &cobra.Command{
 		Use:     "nexus",
 		Short:   `A CLI to interact with Sonatype Nexus IQ and Sonatype Nexus Repository Manager`,
 		Long:    `A Command Line Interface to interact with Sonatype Nexus IQ and Sonatype Nexus Repository Manager`,
@@ -33,7 +31,7 @@ var (
 
 // Execute builds the command tree for the CLI. Exits if an error if found.
 func Execute() {
-	if err := rootCmd.Execute(); err != nil {
+	if err := RootCmd.Execute(); err != nil {
 		fmt.Println(err)
 		os.Exit(1)
 	}
@@ -49,7 +47,7 @@ func init() {
 
 	configPath := fmt.Sprintf("%s/.nexus.json", usr.HomeDir)
 
-	rootCmd.PersistentFlags().StringVar(&cfgFile, "cfgFile", configPath, fmt.Sprintf("config file (default is %s)", configPath))
+	RootCmd.PersistentFlags().StringVar(&cfgFile, "cfgFile", configPath, fmt.Sprintf("config file (default is %s)", configPath))
 }
 
 func initConfig() {

@@ -66,7 +66,7 @@ var (
 )
 
 func init() {
-	iqCmd.AddCommand(iqApplicationsCmd)
+	IqCommand.AddCommand(iqApplicationsCmd)
 	iqApplicationsCmd.AddCommand(iqApplicationsList)
 	iqApplicationsCmd.AddCommand(iqApplicationsCreate())
 	iqApplicationsCmd.AddCommand(iqApplicationsDelete())

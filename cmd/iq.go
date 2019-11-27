@@ -10,18 +10,16 @@ import (
 )
 
 var (
-	iqCmd = &cobra.Command{
+	// IqCommand is the noun which handles any Nexus IQ actions
+	IqCommand = &cobra.Command{
 		Use:   "iq",
 		Short: "command for managing functionality of Nexus IQ",
 		Long:  `command for managing functionality of Nexus IQ`,
-		Run: func(cmd *cobra.Command, args []string) {
-			fmt.Println("iq called")
-		},
 	}
 )
 
 func init() {
-	rootCmd.AddCommand(iqCmd)
+	RootCmd.AddCommand(IqCommand)
 }
 
 func newIQClient() nexusiq.IQ {

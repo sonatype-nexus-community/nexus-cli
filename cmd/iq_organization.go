@@ -49,7 +49,7 @@ var (
 )
 
 func init() {
-	iqCmd.AddCommand(iqOrganizationsCmd)
+	IqCommand.AddCommand(iqOrganizationsCmd)
 	iqOrganizationsCmd.AddCommand(iqOrganizationsList)
 	iqOrganizationsCmd.AddCommand(iqOrganizationsCreate)
 	iqOrganizationsCmd.AddCommand(iqOrganizationsDelete)

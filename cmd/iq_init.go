@@ -7,21 +7,28 @@ import (
 	"github.com/spf13/viper"
 )
 
-var iqInitCmd = &cobra.Command{
-	Use:     "init [-u|--user] username [-p|--password] password ",
-	Short:   "initializes the nexus CLI",
-	Long:    `initializes the nexus CLI and creates a config file (default is $HOME/.nexus.yaml`,
-	Example: `init --user Dave --password Password123!`,
-	Run: func(cmd *cobra.Command, args []string) {
-		err := viper.WriteConfigAs(viper.ConfigFileUsed())
-		if err != nil {
-			fmt.Println(viper.ConfigFileUsed())
-			fmt.Println(err)
-		} else {
-			fmt.Println()
-		}
-	},
-}
+var (
+	iqUser     string
+	iqPassword string
+	iqServer   string
+	iqPort     int
+
+	iqInitCmd = &cobra.Command{
+		Use:     "init [-u|--user] username [-p|--password] password ",
+		Short:   "initializes the nexus CLI",
+		Long:    `initializes the nexus CLI and creates a config file (default is $HOME/.nexus.yaml`,
+		Example: `init --user Dave --password Password123!`,
+		Run: func(cmd *cobra.Command, args []string) {
+			err := viper.WriteConfigAs(viper.ConfigFileUsed())
+			if err != nil {
+				fmt.Println(viper.ConfigFileUsed())
+				fmt.Println(err)
+			} else {
+				fmt.Println()
+			}
+		},
+	}
+)
 
 func init() {
 	iqInitCmd.PersistentFlags().StringVarP(&iqUser, "user", "u", "", "your Nexus IQ user name.")
@@ -37,5 +44,5 @@ func init() {
 	iqInitCmd.MarkFlagRequired("user")
 	iqInitCmd.MarkFlagRequired("password")
 
-	iqCmd.AddCommand(iqInitCmd)
+	IqCommand.AddCommand(iqInitCmd)
 }
