@@ -73,11 +73,9 @@ func init() {
 }
 
 func iqAppsList() {
-	iq := newIQClient()
-
 	fmt.Printf("%s, %s, %s, %s\n", "Name", "Public ID", "ID", "Organization ID")
-	orgsID2Name, _, _ := iqOrgsIDMap(iq)
-	if apps, err := nexusiq.GetAllApplications(iq); err == nil {
+	orgsID2Name, _, _ := iqOrgsIDMap(iqClient)
+	if apps, err := nexusiq.GetAllApplications(iqClient); err == nil {
 		for _, a := range apps {
 			fmt.Printf("%s, %s, %s, %s\n", a.Name, a.PublicID, a.ID, orgsID2Name[a.OrganizationID])
 		}
@@ -85,15 +83,13 @@ func iqAppsList() {
 }
 
 func iqAppsCreate(name, id, organization string) {
-	iq := newIQClient()
-
-	org, err := nexusiq.GetOrganizationByName(iq, organization)
+	org, err := nexusiq.GetOrganizationByName(iqClient, organization)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "error finding organization '%s': %v\n", organization, err)
 		return
 	}
 
-	if _, err = nexusiq.CreateApplication(iq, name, id, org.ID); err != nil {
+	if _, err = nexusiq.CreateApplication(iqClient, name, id, org.ID); err != nil {
 		fmt.Fprintf(os.Stderr, "error creating application '%s': %v\n", name, err)
 		return
 	}
@@ -101,8 +97,6 @@ func iqAppsCreate(name, id, organization string) {
 }
 
 func iqAppsDelete(ids []string) {
-	iq := newIQClient()
-
 	type catcher struct {
 		id  string
 		err error
@@ -110,7 +104,7 @@ func iqAppsDelete(ids []string) {
 
 	errs := make([]catcher, 0)
 	for _, id := range ids {
-		if err := nexusiq.DeleteApplication(iq, id); err != nil {
+		if err := nexusiq.DeleteApplication(iqClient, id); err != nil {
 			errs = append(errs, catcher{id, err})
 			continue
 		}

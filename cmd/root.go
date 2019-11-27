@@ -22,10 +22,9 @@ var (
 
 	// RootCmd is the primary command that will handle the nouns
 	RootCmd = &cobra.Command{
-		Use:     "nexus",
-		Short:   `A CLI to interact with Sonatype Nexus IQ and Sonatype Nexus Repository Manager`,
-		Long:    `A Command Line Interface to interact with Sonatype Nexus IQ and Sonatype Nexus Repository Manager`,
-		Version: "0.3.0",
+		Use:   "nexus",
+		Short: `A CLI to interact with Sonatype Nexus IQ and Sonatype Nexus Repository Manager`,
+		Long:  `A Command Line Interface to interact with Sonatype Nexus IQ and Sonatype Nexus Repository Manager`,
 	}
 )
 
@@ -47,7 +46,7 @@ func init() {
 
 	configPath := fmt.Sprintf("%s/.nexus.json", usr.HomeDir)
 
-	RootCmd.PersistentFlags().StringVar(&cfgFile, "cfgFile", configPath, fmt.Sprintf("config file (default is %s)", configPath))
+	RootCmd.PersistentFlags().StringVar(&cfgFile, "cfgFile", configPath, "configuration file for the Sonatype Nexus platform")
 }
 
 func initConfig() {

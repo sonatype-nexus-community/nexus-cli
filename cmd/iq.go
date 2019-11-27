@@ -10,11 +10,17 @@ import (
 )
 
 var (
+	iqClient nexusiq.IQ
+
 	// IqCommand is the noun which handles any Nexus IQ actions
 	IqCommand = &cobra.Command{
-		Use:   "iq",
-		Short: "command for managing functionality of Nexus IQ",
-		Long:  `command for managing functionality of Nexus IQ`,
+		Use:     "iq",
+		Aliases: []string{"q"},
+		Short:   "Subcommand for managing functionality of Nexus IQ",
+		Long:    `Subcommand for managing functionality of Nexus IQ`,
+		PersistentPreRun: func(cmd *cobra.Command, args []string) {
+			iqClient = newIQClient()
+		},
 	}
 )
 

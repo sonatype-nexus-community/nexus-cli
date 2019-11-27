@@ -67,8 +67,6 @@ func iqOrgsList() {
 }
 
 func iqOrgsCreate(names []string) {
-	iq := newIQClient()
-
 	type catcher struct {
 		name string
 		err  error
@@ -76,7 +74,7 @@ func iqOrgsCreate(names []string) {
 
 	errs := make([]catcher, 0)
 	for _, name := range names {
-		orgID, err := nexusiq.CreateOrganization(iq, name)
+		orgID, err := nexusiq.CreateOrganization(iqClient, name)
 		if err != nil {
 			errs = append(errs, catcher{name, err})
 			continue
@@ -90,8 +88,6 @@ func iqOrgsCreate(names []string) {
 }
 
 func iqOrgsDelete(names []string) {
-	iq := newIQClient()
-
 	type catcher struct {
 		name string
 		err  error
@@ -99,9 +95,9 @@ func iqOrgsDelete(names []string) {
 
 	errs := make([]catcher, 0)
 	for _, name := range names {
-		org, err := nexusiq.GetOrganizationByName(iq, name)
+		org, err := nexusiq.GetOrganizationByName(iqClient, name)
 		if err == nil {
-			err = privateiq.DeleteOrganization(iq, org.ID)
+			err = privateiq.DeleteOrganization(iqClient, org.ID)
 		}
 		if err != nil {
 			errs = append(errs, catcher{name, err})

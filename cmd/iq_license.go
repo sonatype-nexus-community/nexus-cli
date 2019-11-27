@@ -58,8 +58,7 @@ func iqInstallLicense(licensePath string) {
 		panic(err)
 	}
 
-	iq := newIQClient()
-	if err = privateiq.InstallLicense(iq, license); err != nil {
+	if err = privateiq.InstallLicense(iqClient, license); err != nil {
 		panic(err)
 	}
 

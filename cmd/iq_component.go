@@ -121,8 +121,6 @@ func init() {
 }
 
 func iqComponentDeets(format string, ids ...string) {
-	iq := newIQClient()
-
 	type catcher struct {
 		id  string
 		err error
@@ -133,7 +131,7 @@ func iqComponentDeets(format string, ids ...string) {
 		c, err := nexusiq.NewComponentFromString(id)
 		var components []nexusiq.ComponentDetail
 		if err == nil {
-			components, err = nexusiq.GetComponents(iq, []nexusiq.Component{*c})
+			components, err = nexusiq.GetComponents(iqClient, []nexusiq.Component{*c})
 		}
 		if err != nil {
 			errs = append(errs, catcher{id, err})
@@ -159,9 +157,7 @@ func iqComponentDeets(format string, ids ...string) {
 }
 
 func iqComponentsAll(format string) {
-	iq := newIQClient()
-
-	components, err := nexusiq.GetAllComponents(iq)
+	components, err := nexusiq.GetAllComponents(iqClient)
 	if err != nil {
 		log.Printf("error listing components: %v\n", err)
 		return
@@ -181,8 +177,6 @@ func iqComponentsAll(format string) {
 }
 
 func iqComponentEval(format, app string, components []string) {
-	iq := newIQClient()
-
 	comps := make([]nexusiq.Component, len(components))
 	for i, c := range components {
 		comps[i] = nexusiq.Component{PackageURL: c}
@@ -191,9 +185,9 @@ func iqComponentEval(format, app string, components []string) {
 	var report *nexusiq.Evaluation
 	var err error
 	if app != "" {
-		report, err = nexusiq.EvaluateComponents(iq, comps, app)
+		report, err = nexusiq.EvaluateComponents(iqClient, comps, app)
 	} else {
-		report, err = privateiq.EvaluateComponentsWithRootOrg(iq, comps)
+		report, err = privateiq.EvaluateComponentsWithRootOrg(iqClient, comps)
 	}
 	if err != nil {
 		log.Fatal(err)
@@ -226,8 +220,6 @@ func getRemediationByPURL(iq nexusiq.IQ, application, organization, stage, compo
 }
 
 func iqComponentRemediation(format, application, organization, stage string, components []string) {
-	iq := newIQClient()
-
 	type catcher struct {
 		component string
 		err       error
@@ -238,7 +230,7 @@ func iqComponentRemediation(format, application, organization, stage string, com
 	errs := make([]catcher, 0)
 	for _, c := range components {
 
-		remediation, err := getRemediationByPURL(iq, application, organization, stage, c)
+		remediation, err := getRemediationByPURL(iqClient, application, organization, stage, c)
 		if err != nil {
 			errs = append(errs, catcher{c, err})
 			continue
