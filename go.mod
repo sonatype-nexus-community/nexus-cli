@@ -6,7 +6,7 @@ require (
 	github.com/hokiegeek/gonexus-private v0.10.6
 	github.com/pelletier/go-toml v1.6.0 // indirect
 	github.com/sonatype-nexus-community/gonexus v0.56.7
-	github.com/sonatype/gonexus-private v0.13.1 // indirect
+	github.com/sonatype/gonexus-private v0.13.1
 	github.com/spf13/afero v1.2.2 // indirect
 	github.com/spf13/cobra v0.0.5
 	github.com/spf13/jwalterweatherman v1.1.0 // indirect
