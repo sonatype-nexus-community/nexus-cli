@@ -6,8 +6,8 @@ import (
 
 	"github.com/spf13/cobra"
 
-	privateiq "github.com/hokiegeek/gonexus-private/iq"
 	nexusiq "github.com/sonatype-nexus-community/gonexus/iq"
+	privateiq "github.com/sonatype/gonexus-private/iq"
 )
 
 var (

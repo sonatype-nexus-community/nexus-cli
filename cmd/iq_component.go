@@ -10,15 +10,16 @@ import (
 
 	"github.com/spf13/cobra"
 
-	privateiq "github.com/hokiegeek/gonexus-private/iq"
 	nexusiq "github.com/sonatype-nexus-community/gonexus/iq"
+	privateiq "github.com/sonatype/gonexus-private/iq"
 )
 
 var (
 	iqComponentsCmd = &cobra.Command{
-		Use:   "components",
-		Short: "Work with the information in Nexus IQ about third-party components",
-		Long:  `List and evaluate components with your Nexus IQ Server`,
+		Use:     "components",
+		Aliases: []string{"component"},
+		Short:   "Work with the information in Nexus IQ about third-party components",
+		Long:    `List and evaluate components with your Nexus IQ Server`,
 		/*
 			Run: func(cmd *cobra.Command, args []string) {
 				iqComponentsAll("")

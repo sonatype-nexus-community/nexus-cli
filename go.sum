@@ -95,6 +95,9 @@ github.com/sonatype-nexus-community/gonexus v0.53.1 h1:CRTLQBpUCAbT8HE3TAwTPDsEY
 github.com/sonatype-nexus-community/gonexus v0.53.1/go.mod h1:8mIhif8LsneZhpdBovy51ah8CcYuy7Al4WP723TQoOY=
 github.com/sonatype-nexus-community/gonexus v0.54.0 h1:T7NqiJDJcj9bz0EgRv3zmxPk92phCgYwLsqqZeIpw/I=
 github.com/sonatype-nexus-community/gonexus v0.54.0/go.mod h1:8mIhif8LsneZhpdBovy51ah8CcYuy7Al4WP723TQoOY=
+github.com/sonatype-nexus-community/gonexus v0.56.7/go.mod h1:8mIhif8LsneZhpdBovy51ah8CcYuy7Al4WP723TQoOY=
+github.com/sonatype/gonexus-private v0.13.1 h1:QC2g4ssGe/1b+vxfHxUNGK1VCiu/1zLVY6iSzfp5m04=
+github.com/sonatype/gonexus-private v0.13.1/go.mod h1:v4VT0T5cye+Gx/ki0y38kKIbsfoMOWBf7njQ0sDVIY8=
 github.com/spaolacci/murmur3 v0.0.0-20180118202830-f09979ecbc72/go.mod h1:JwIasOWyU6f++ZhiEuf87xNszmSA2myDM2Kzu9HwQUA=
 github.com/spf13/afero v1.1.2 h1:m8/z1t7/fwjysjQRYbP0RD+bUIF/8tJwPdEZsI83ACI=
 github.com/spf13/afero v1.1.2/go.mod h1:j4pytiNVoe2o6bmDsKpLACNPDBIoEAkihy7loJ1B0CQ=
